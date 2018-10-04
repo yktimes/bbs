@@ -39,16 +39,25 @@ def read(request):
 
     return render(request, 'read.html', {'post': post})
 
-
+from .utils.page import Pagination
 def post_list(request):
-    return render(request, 'post_list.html', {})
+    # 分页器
+
+    data_list = Post.objects.all()
+    current_page = int(request.GET.get("page",1)) # 当前页码
+    data_count = Post.objects.all().count()    # 总页数
+    base_path = request.path
+    pagination = Pagination(current_page, data_count, base_path, request.GET, per_page_num=2, pager_count=8, )
+    posts = data_list[pagination.start:pagination.end]
+    print(pagination,posts)
+    return render(request, 'post_list.html', {'posts':posts,'pagination':pagination})
 
 
 def search(request):
     if request.method == 'POST':
         keyword = request.POST.get("keyword")
-        post = Post.objects.filter(title=keyword)
-        print(post)
+        posts = Post.objects.filter(content__contains=keyword)
 
 
-    return render(request, 'search.html', {'posts':post})
+
+    return render(request, 'search.html', {'posts':posts})
