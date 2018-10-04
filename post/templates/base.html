@@ -26,11 +26,11 @@
                 <a class="navbar-brand site-icon" href="/">
                     <img src="/static/img/icon.png" width="40px" height="40px">
                 </a>
-                <a class="navbar-brand" href="/">大蟒阵营</a>
+                <a class="navbar-brand" href="/">敢不敢说</a>
             </div>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/post/create/">发表新帖</a></li>
+                <li><a href="/post/create/">发新帖</a></li>
                 {% if "uid" in request.session %}
                     <li><a>Hello, {{request.session.nickname}}</a></li>
                     <li><a href="/user/logout/">退出</a></li>
